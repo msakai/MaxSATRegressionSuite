@@ -12,3 +12,18 @@ cd $(dirname $0)
 wget https://maxsat-evaluations.github.io/2024/MaxSATRegressionSuiteWCNFs.zip
 unzip MaxSATRegressionSuiteWCNFs.zip
 rm MaxSATRegressionSuiteWCNFs.zip
+
+
+# Prompt the user
+echo "Do you want to download and install kissat from the GitHub homepage (y/n)?"
+read -p "> " answer
+
+# Check the user's answer (case-insensitive)
+if [[ "$answer" =~ ^[Yy]$ ]]; then
+    echo "Downloading and isntalling kissat from GitHub..."
+    git clone https://github.com/arminbiere/kissat.git
+    cd kissat
+    ./configure
+    make test
+    cd ..
+fi
