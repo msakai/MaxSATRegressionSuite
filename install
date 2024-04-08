@@ -1,0 +1,14 @@
+#!/bin/bash
+
+## This script downloads all csv and WCNF files from the MaxSAT Evaluation hompage to test the solvers on.
+
+set -e
+
+cd $(dirname $0)
+
+# uses the program unzip and wget - for ubuntu just do
+# sudo apt-get install unzip
+# sudo apt-get install wget
+wget https://maxsat-evaluations.github.io/2024/MaxSATRegressionSuiteWCNFs.zip
+unzip MaxSATRegressionSuiteWCNFs.zip
+rm MaxSATRegressionSuiteWCNFs.zip
