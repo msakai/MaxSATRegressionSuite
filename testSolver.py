@@ -740,10 +740,16 @@ def run_solver_on_wcnfs(
             elif (
                 solution == "OPTIMUM FOUND" or solution == "SATISFIABLE"
             ) and hard_clause_solution_string == "UNSATISFIABLE":
-                error_string += update_dict(
-                    f"Hard clauses are UNSATISFIABLE but the solver returned 's {solution}'.",
-                    global_error_dict,
-                )
+                if anytime:
+                    issue_string += update_dict(
+                        f"Hard clauses are UNSATISFIABLE but the solver returned 's {solution}.",
+                        global_issue_dict,
+                    )
+                else:
+                    error_string += update_dict(
+                        f"Hard clauses are UNSATISFIABLE but the solver returned 's {solution}'.",
+                        global_error_dict,
+                    )
 
             # handling the case in which we have a satisfiable modle line (v ...)
             if (
