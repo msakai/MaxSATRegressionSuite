@@ -994,11 +994,6 @@ def main():
 
     additional_timeout_after_SIGTERM_before_sending_SIGKILL = args.SIGKILLTO
 
-    if args.anytime:
-        print(
-            "The option anytime is not yet ready. Try to update the repository in one week time."
-        )
-
     # solver = shlex.split(args.solver)
     solver = args.solver.split()
     if args.folder and not args.folder.endswith("/"):
