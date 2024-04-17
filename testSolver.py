@@ -640,9 +640,15 @@ def run_solver_on_wcnfs(
         sys.stdout.write(
             f"\rCOUNTER: [{counter}/{overall_instances}], next: {wcnf['WCNFFile']}        "
         )
+        if '{}' in solver:
+            command = []
+            for arg in solver:
+                command.append(arg.replace('{}', folder + wcnf["WCNFFile"]))
+        else:
+            command = solver + [folder + wcnf["WCNFFile"]]
 
         stdout, stderr, return_code, termination = run_solver_with_timeout(
-            solver + [folder + wcnf["WCNFFile"]], timeout
+            command, timeout
         )
 
         # termination: -1 == timeout, -2 == killed after an additional second
@@ -843,7 +849,7 @@ def run_solver_on_wcnfs(
             else:
                 print(f"\tSolver call to reproduce error: ")
 
-            print(f"\t\t{solver_call}{folder}{wcnf['WCNFFile']}\n\n")
+            print(f"\t\t{' '.join(command)}\n\n")
         # solver_call = ""
         # for item in solver:
         #     solver_call += item + " "
@@ -889,7 +895,8 @@ def main():
     parser.add_argument(
         "solver",
         type=str,
-        help="Solver to run on the wcnfs. If you want to add arguments to the solver, put them in quotes.",
+        help="Solver to run on the wcnfs. If you want to add arguments to the solver, put them in quotes. \
+              If the wcnf instance should not be placed at the end use '{}' as a placeholder for the instance position.",
     )
     parser.add_argument(
         "--csv",
