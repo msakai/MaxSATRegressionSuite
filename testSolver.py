@@ -480,7 +480,7 @@ def terminate_process_and_children(process):
         except ProcessLookupError:
             pass  # The process does not exist anymore
 
-    return (process.communicate(), killed)
+    return ((process.stdout.read(), process.stderr.read()), killed)
 
 
 def run_solver_with_timeout(command, timeout):
