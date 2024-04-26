@@ -523,8 +523,9 @@ def run_solver_with_timeout(command, timeout):
             if killed:
                 return stdout, stderr, process.returncode, -2
             return stdout, stderr, process.returncode, -1
-
+        
     return stdout, stderr, process.returncode, 0
+
 
 
 def update_dict(msg, dict):
@@ -677,9 +678,15 @@ def run_solver_on_wcnfs(
             error_string += f"\t\tSolver didn't react to SIGTERM (send after {timeout}s) so we had to send SIGKILL after {additional_timeout_after_SIGTERM_before_sending_SIGKILL} additional second(s). WCNF with {vars} variables, {nb_hard_clauses} hard clauses and {nb_soft_clauses} soft clauses and file size {os.path.getsize(folder + wcnf['WCNFFile'])} Bytes.\n"
 
         if termination == 0 and return_code not in [0, 10, 20, 30]:
-            error_string += update_dict(
-                f"Invalid solver exit code {return_code}", global_error_dict
-            )
+            if return_code > 0:
+                error_string += update_dict(
+                    f"Invalid solver exit code {return_code}", global_error_dict
+                )
+            else:
+                update_dict(
+                    f"Terminated by signal {-return_code}", global_error_dict
+                )
+                error_string += f"\t\tTerminated by signal {-return_code} -- e.g. 11 means segfault (SIGSEGV), list them with 'kill -l'.\n"
         elif termination != -2 and stderr and not stderr.isspace():
             stderr = stderr.decode("utf-8")
             issue_string += update_dict(
