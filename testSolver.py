@@ -764,7 +764,7 @@ def run_solver_on_wcnfs(
                         global_error_dict,
                     )
 
-            # handling the case in which we have a satisfiable modle line (v ...)
+            # handling the case in which we have a satisfiable model line (v ...)
             if (
                 solution
                 and solution != ""
@@ -979,7 +979,7 @@ def main():
     exit_code_description = (
         "\nSTARTING IN MSE 2024 --> the solver must return one of the following exit codes:\n"
         "\t0 \tif it cannot find a solution satisfying the hard clauses or prove unsatisfiability.\n"
-        "\t10\tif the solver finds a solution satisfying the hard clauses but does not prove it to be unsatisfiabe.\n"
+        "\t10\tif the solver finds a solution satisfying the hard clauses but does not prove it to be unsatisfiable.\n"
         "\t20\tif it finds that the hard clauses are unsatisfiable.\n"
         "\t30\tif it finds an optimal solution.\n"
     )
