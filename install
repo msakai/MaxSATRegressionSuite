@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## This script downloads all csv and WCNF files from the MaxSAT Evaluation hompage to test the solvers on.
+## This script downloads all csv and WCNF files from the MaxSAT Evaluation homepage to test the solvers on.
 
 set -e
 
@@ -20,7 +20,7 @@ read -p "> " answer
 
 # Check the user's answer (case-insensitive)
 if [[ "$answer" =~ ^[Yy]$ ]]; then
-    echo "Downloading and isntalling kissat from GitHub..."
+    echo "Downloading and installing kissat from GitHub..."
     git clone https://github.com/arminbiere/kissat.git
     cd kissat
     ./configure
